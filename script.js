@@ -18,13 +18,35 @@ $("#button-submit").click(function() {
     let id = counter++;
     var text = $("#add-item-text").val().trim();
 
+    /* DEADLINES */
+    var deadlineWarning;
+    var now = new Date();
+    var deadlineDate = new Date($("#date-deadline").val() + "T" + $("#time-deadline").val() + ":00");
+    var formattedDeadlineDate = deadlineDate.toLocaleDateString("en-US", 
+        {
+            month: "short", 
+            day: "numeric", 
+        }
+    );
+    var dateDiff = (deadlineDate.getTime() - now.getTime());
+    var hoursUntilDeadline = Math.floor(dateDiff / (1000 * 60 * 60));
+    var daysUntilDeadline = Math.floor(dateDiff / (1000 * 60 * 60 * 24));
+    var weeksUntilDeadline = Math.floor(daysUntilDeadline / 7);
+
+    if (daysUntilDeadline < 0)        { deadlineWarning = "FAILED"; }
+    else if (hoursUntilDeadline < 24) { deadlineWarning = `DUE IN ${hoursUntilDeadline}H`; }
+    else if (daysUntilDeadline < 2)   { deadlineWarning = "DUE TOMORROW"; }
+    else if (daysUntilDeadline < 7)   { deadlineWarning = `DUE IN ${daysUntilDeadline} DAYS`; }
+    else if (weeksUntilDeadline < 2)  { deadlineWarning = "DUE IN 1 WEEK"; }
+    else                              { deadlineWarning = `DUE IN ${weeksUntilDeadline} WEEKS`; }
+
     var $item = $(`
         <div class="list-item">
             <div class="list-item-content">
                 <div class="list-item-header">
                     <input type="checkbox" id="${id}">
                     <label for="${id}" id="list-item-title">${text}</label>
-                    <span class="list-item-deadline">DUE TODAY</span>
+                    <span class="list-item-deadline">${deadlineWarning} - ${formattedDeadlineDate}</span>
                 </div>
                 <div class="list-item-body">
                     <p>Update all production servers with the latest vulnerability fix before the deadline window closes at end of day.</p>
