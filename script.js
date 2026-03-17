@@ -1,3 +1,15 @@
+$(function () {
+    flatpickr("#date-deadline", {
+        enableTime: false,
+        dateFormat: "Y-m-d"
+    });
+    flatpickr("#time-deadline", {
+        enableTime: true,
+        noCalendar: true,
+        dateFormat: "H:i"
+    });
+})
+
 /* Add list item when clicked add item button */
 var counter = 0;
 $("#button-submit").click(function() {

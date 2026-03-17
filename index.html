@@ -10,6 +10,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="./node_modules/flatpickr/dist/flatpickr.css">
+
 </head>
 <body>
     <div class="app-container">
@@ -24,17 +26,18 @@
                     </button>
                 </div>
                 <div class="add-item-options">
-                    <select class="button" id="deadline" name="deadlne">
-                        <span class="btn-transition"></span>
-                        <option class="btn-label">DEADLINE</option>
-                    </select>
                     <select class="button" id="priority" name="priority">
-                        <span class="btn-transition"></span>
                         <option class="btn-label">PRIORITY</option>
                         <option value="high">HIGH</option>
                         <option value="medium">MEDIUM</option>
                         <option value="low">LOW</option>
                     </select>
+                    <div class="button">
+                        <input id="date-deadline" name="date-deadline" type="text" placeholder="DATE">
+                    </div>
+                    <div class="button">
+                        <input id="time-deadline" name="time-deadline" type="text" placeholder="TIME">
+                    </div>
                 </div>
             </div>
             <div class="list-container-ongoing"> 
@@ -67,6 +70,7 @@
     </div class="app-container">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="./node_modules/flatpickr/dist/flatpickr.js"></script>
 <script src="script.js"></script>
 </body>
 </html>
