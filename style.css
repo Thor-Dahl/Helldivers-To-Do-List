@@ -293,7 +293,7 @@ select.button {
     transition: transform 200ms ease;
 }
 
-#list-item-title {
+.list-item-title {
     font-size: 24px;
     letter-spacing: 1px;
 }
@@ -393,34 +393,34 @@ select.button {
    show/hide behavior readable in one place.
    ============================================================================= */
 
-#drag_indicator_list_option {
+.drag-indicator-list-option {
     flex: 1;
     opacity: 0.4;
     transition: opacity 200ms ease;
 }
 
-#delete_list_option,
-#edit_list_option {
+.delete-list-option,
+.edit-list-option {
     max-width: 0;
     opacity: 0;
     pointer-events: none;
     transition: opacity 200ms ease, max-width 100ms ease, transform 200ms ease;
 }
 
-.list-item-options:hover #drag_indicator_list_option {
+.list-item-options:hover .drag-indicator-list-option {
     max-width: 0;
     opacity: 0;
 }
 
-.list-item-options:hover #delete_list_option,
-.list-item-options:hover #edit_list_option {
+.list-item-options:hover .delete-list-option,
+.list-item-options:hover .edit-list-option {
     max-width: 40px;
     opacity: 0.4;
     pointer-events: auto;
 }
 
-#delete_list_option:hover,
-#edit_list_option:hover {
+.delete-list-option:hover,
+.edit-list-option:hover {
     max-width: 40px;
     opacity: 0.4;
     pointer-events: auto;

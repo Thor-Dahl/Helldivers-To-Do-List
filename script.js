@@ -1,37 +1,34 @@
-$(function () {
-    flatpickr("#date-deadline", {
-        enableTime: false,
-        dateFormat: "Y-m-d"
-    });
-    flatpickr("#time-deadline", {
-        enableTime: true,
-        noCalendar: true,
-        dateFormat: "H:i"
-    });
-})
+flatpickr("#date-deadline", {
+    enableTime: false,
+    dateFormat: "Y-m-d"
+});
+flatpickr("#time-deadline", {
+    enableTime: true,
+    noCalendar: true,
+    dateFormat: "H:i"
+});
 
 /* Add list item when clicked add item button */
-var counter = 0;
 $("#button-submit").click(function() {
-    var priorityText = $("#priority option:selected").text();
-    var priorityVal = $("#priority").val()
-    let id = counter++;
-    var text = $("#add-item-text").val().trim();
+    const priorityText = $("#priority option:selected").text();
+    const priorityVal = $("#priority").val();
+    let id = $(".list-item").length + 1;
+    const text = $("#add-item-text").val().trim();
 
     /* DEADLINES */
-    var deadlineWarning;
-    var now = new Date();
-    var deadlineDate = new Date($("#date-deadline").val() + "T" + $("#time-deadline").val() + ":00");
-    var formattedDeadlineDate = deadlineDate.toLocaleDateString("en-US", 
+    let deadlineWarning;
+    const now = new Date();
+    const deadlineDate = new Date($("#date-deadline").val() + "T" + $("#time-deadline").val() + ":00");
+    const formattedDeadlineDate = deadlineDate.toLocaleDateString("en-US", 
         {
             month: "short", 
             day: "numeric", 
         }
     );
-    var dateDiff = (deadlineDate.getTime() - now.getTime());
-    var hoursUntilDeadline = Math.floor(dateDiff / (1000 * 60 * 60));
-    var daysUntilDeadline = Math.floor(dateDiff / (1000 * 60 * 60 * 24));
-    var weeksUntilDeadline = Math.floor(daysUntilDeadline / 7);
+    const dateDiff = (deadlineDate.getTime() - now.getTime());
+    const hoursUntilDeadline = Math.floor(dateDiff / (1000 * 60 * 60));
+    const daysUntilDeadline = Math.floor(dateDiff / (1000 * 60 * 60 * 24));
+    const weeksUntilDeadline = Math.floor(daysUntilDeadline / 7);
 
     if (daysUntilDeadline < 0)        { deadlineWarning = "FAILED"; }
     else if (hoursUntilDeadline < 24) { deadlineWarning = `DUE IN ${hoursUntilDeadline}H`; }
@@ -40,12 +37,12 @@ $("#button-submit").click(function() {
     else if (weeksUntilDeadline < 2)  { deadlineWarning = "DUE IN 1 WEEK"; }
     else                              { deadlineWarning = `DUE IN ${weeksUntilDeadline} WEEKS`; }
 
-    var $item = $(`
+    const $item = $(`
         <div class="list-item">
             <div class="list-item-content">
                 <div class="list-item-header">
                     <input type="checkbox" id="${id}">
-                    <label for="${id}" id="list-item-title">${text}</label>
+                    <label for="${id}" class="list-item-title">${text}</label>
                     <span class="list-item-deadline">${deadlineWarning} - ${formattedDeadlineDate}</span>
                 </div>
                 <div class="list-item-body">
@@ -56,30 +53,21 @@ $("#button-submit").click(function() {
                 </div>
             </div>
             <div class="list-item-options">
-                <span class="material-symbols-outlined" id="drag_indicator_list_option">drag_indicator</span>
-                <span class="material-symbols-outlined" id="delete_list_option">delete</span>
-                <span class="material-symbols-outlined" id="edit_list_option">edit</span>
+                <span class="material-symbols-outlined drag-indicator-list-option">drag_indicator</span>
+                <span class="material-symbols-outlined delete-list-option">delete</span>
+                <span class="material-symbols-outlined edit-list-option">edit</span>
             </div>
         </div>
     `);
 
-    if (priorityVal === 'high') {
-        $item.find(".list-item-priority").addClass("high-priority");
-    } 
-    else if (priorityVal === 'medium') {
-        $item.find(".list-item-priority").addClass("medium-priority");
-    }
-    else {
-        $item.find(".list-item-priority").addClass("low-priority");
-    }
-
+    $item.find(".list-item-priority").addClass(`${priorityVal}-priority`);
     $(".list-container-ongoing").append($item);
 })
 
 /* Move list item depending on checkbox */
 $(".main-container").on("change", ".list-item input[type='checkbox']", function() {
-    var listItem = $(this).closest(".list-item");
-    var isChecked = $(this).prop("checked");
+    const listItem = $(this).closest(".list-item");
+    const isChecked = $(this).prop("checked");
     if (isChecked) {
         $(".list-container-accomplished").append(listItem);
         listItem.addClass("accomplished");
@@ -89,7 +77,7 @@ $(".main-container").on("change", ".list-item input[type='checkbox']", function(
     }
 })
 
-$(".main-container").on("click", "#delete_list_option", function() { 
+$(".main-container").on("click", ".delete-list-option", function() { 
     $(this).closest(".list-item").remove(); 
 })
 
