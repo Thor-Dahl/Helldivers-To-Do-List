@@ -63,15 +63,42 @@ $("#button-submit").click(function() {
 })
 
 /* Move list item depending on checkbox */
+const ITEM_MOVE_DURATION = 320;
+
+function playListItemAnimation($item, animationName) {
+    $item.css("animation", "none");
+    void $item[0].offsetWidth;
+    $item.css("animation", `${animationName} ${ITEM_MOVE_DURATION}ms ease forwards`);
+}
+
 $(".main-container").on("change", ".list-item input[type='checkbox']", function() {
     const listItem = $(this).closest(".list-item");
     const isChecked = $(this).prop("checked");
-    if (isChecked) {
-        $(".list-container-accomplished").append(listItem);
-        listItem.addClass("accomplished");
-    } else {
-        $(".list-container-ongoing").append(listItem);
-        listItem.removeClass("accomplished");
+
+    listItem.css("pointer-events", "none");
+
+    if (isChecked) {                                   //Mark as accomplished
+        playListItemAnimation(listItem, "fadeOutDown");
+        setTimeout(() => {
+            $(".list-container-accomplished").append(listItem);
+            listItem.addClass("accomplished");
+            playListItemAnimation(listItem, "fadeInUpDone");
+            setTimeout(() => {
+                listItem.css("animation", "");
+                listItem.css("pointer-events", "");
+            }, ITEM_MOVE_DURATION);
+        }, ITEM_MOVE_DURATION);
+    } else {                                           //Mark as ongoing
+        playListItemAnimation(listItem, "fadeOutUp");
+        setTimeout(function() {
+            $(".list-container-ongoing").append(listItem);
+            listItem.removeClass("accomplished");
+            playListItemAnimation(listItem, "fadeInDown");
+            setTimeout(() => {
+                listItem.css("animation", "");
+                listItem.css("pointer-events", "");
+            }, ITEM_MOVE_DURATION);
+        }, ITEM_MOVE_DURATION);
     }
 })
 

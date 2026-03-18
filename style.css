@@ -294,7 +294,7 @@ select.button {
     cursor: pointer;
     overflow-wrap: break-word;
     background: var(--stripe-bg);
-    transition: transform 200ms ease;
+    transition: transform 180ms ease;
 }
 
 .list-item-title {
@@ -432,34 +432,8 @@ select.button {
 }
 
 
-/* =============================================================================
-   LIST ITEM HOVER GLOW ANIMATION (ongoing only)
-   ============================================================================= */
-
-.list-container-ongoing .list-item:hover::after,
-.list-container-ongoing .list-item:hover::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    z-index: -1;
-    width: 100%;
-    height: 100%;
-    padding: 2px;
-    background-image: conic-gradient(from var(--angle), transparent 40%, var(--color-accent));
-    transform: translate(-50%, -50%);
-    animation: 3s spin linear infinite;
-    --angle: 270deg;
-}
-
-.list-container-ongoing .list-item::before {
-    filter: blur(7px);
-    opacity: 0.5;
-}
-
-@keyframes spin {
-    from { --angle: 270deg; }
-    to   { --angle: 630deg; }
+.list-item:hover {
+    transform: scale(1.012);
 }
 
 /* =============================================================================
@@ -514,4 +488,63 @@ input[type="checkbox"]:checked::before {
     outline: none;
     background: none;
     border: none;
+}
+
+/* =============================================================================
+   TOOGLE ANIMATION
+   ============================================================================ */
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUpDone {
+    from {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+    to {
+        opacity: 0.4;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-18px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeOutDown {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(18px);
+    }
+}
+
+@keyframes fadeOutUp {
+    from {
+        opacity: 0.4;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-18px);
+    }
 }
