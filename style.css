@@ -63,7 +63,8 @@ h2::after {
     content: '';
     flex: 1;
     height: 1px;
-    margin-left: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
     background-color: #313440;
 }
 
@@ -547,4 +548,21 @@ input[type="checkbox"]:checked::before {
         opacity: 0;
         transform: translateY(-18px);
     }
+}
+
+.section-info {
+    display: flex;
+    align-items: center;
+}
+
+.section-info h2 {
+    flex: 1;
+    margin: 0;
+}
+
+.section-item-count {
+    font-size: 12px;
+    font-family: 'Share Tech Mono', sans-serif;
+    font-weight: bold;
+    color: #313440;
 }

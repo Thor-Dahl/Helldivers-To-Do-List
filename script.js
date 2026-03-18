@@ -35,6 +35,10 @@ $("#button-submit").click(function() {
     else if (weeksUntilDeadline < 2)  { deadlineWarning = "DUE IN 1 WEEK"; }
     else                              { deadlineWarning = `DUE IN ${weeksUntilDeadline} WEEKS`; }
 
+    if (title === "") {
+        return;
+    }
+
     const $item = $(`
         <div class="list-item">
             <div class="list-item-content">
@@ -60,10 +64,14 @@ $("#button-submit").click(function() {
 
     $item.find(".list-item-priority").addClass(`${priorityVal}-priority`);
     $(".list-container-ongoing").append($item);
+
+    $("#add-item-text").val("");
+    $("#add-item-description").val("");
+    $("#priority").val("PRIORITY");
 })
 
 /* Move list item depending on checkbox */
-const ITEM_MOVE_DURATION = 320;
+const ITEM_MOVE_DURATION = 220;
 
 function playListItemAnimation($item, animationName) {
     $item.css("animation", "none");
