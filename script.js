@@ -2,6 +2,7 @@ flatpickr("#date-deadline", {
     enableTime: false,
     dateFormat: "Y-m-d"
 });
+
 flatpickr("#time-deadline", {
     enableTime: true,
     noCalendar: true,
@@ -13,23 +14,20 @@ $("#button-submit").click(function() {
     const priorityText = $("#priority option:selected").text();
     const priorityVal = $("#priority").val();
     let id = $(".list-item").length + 1;
-    const text = $("#add-item-text").val().trim();
+    const title = $("#add-item-text").val().trim();
+    const description = $("#add-item-description").val().trim();
 
-    /* DEADLINES */
-    let deadlineWarning;
+    /* DATES & DEADLINES */
     const now = new Date();
     const deadlineDate = new Date($("#date-deadline").val() + "T" + $("#time-deadline").val() + ":00");
-    const formattedDeadlineDate = deadlineDate.toLocaleDateString("en-US", 
-        {
-            month: "short", 
-            day: "numeric", 
-        }
-    );
-    const dateDiff = (deadlineDate.getTime() - now.getTime());
+    const formattedDeadlineDate = deadlineDate.toLocaleDateString("en-US", { month: "short", day: "numeric", });
+
+    const dateDiff = deadlineDate.getTime() - now.getTime();
     const hoursUntilDeadline = Math.floor(dateDiff / (1000 * 60 * 60));
     const daysUntilDeadline = Math.floor(dateDiff / (1000 * 60 * 60 * 24));
     const weeksUntilDeadline = Math.floor(daysUntilDeadline / 7);
 
+    let deadlineWarning;
     if (daysUntilDeadline < 0)        { deadlineWarning = "FAILED"; }
     else if (hoursUntilDeadline < 24) { deadlineWarning = `DUE IN ${hoursUntilDeadline}H`; }
     else if (daysUntilDeadline < 2)   { deadlineWarning = "DUE TOMORROW"; }
@@ -42,11 +40,11 @@ $("#button-submit").click(function() {
             <div class="list-item-content">
                 <div class="list-item-header">
                     <input type="checkbox" id="${id}">
-                    <label for="${id}" class="list-item-title">${text}</label>
+                    <label for="${id}" class="list-item-title">${title}</label>
                     <span class="list-item-deadline">${deadlineWarning} - ${formattedDeadlineDate}</span>
                 </div>
                 <div class="list-item-body">
-                    <p>Update all production servers with the latest vulnerability fix before the deadline window closes at end of day.</p>
+                    <p>${description}</p>
                 </div>
                 <div class="list-item-priority">
                     <span>${priorityText} PRIORITY</span>
@@ -77,19 +75,7 @@ $(".main-container").on("change", ".list-item input[type='checkbox']", function(
     }
 })
 
+/* Remove list item when deleted */
 $(".main-container").on("click", ".delete-list-option", function() { 
     $(this).closest(".list-item").remove(); 
 })
-
-
-
-/*
-selector.click(function(){}) - functions happens when clicking selector
-selector.append('html_body') - appends html body as a direct child to selector
-parent_selector.on('event_type', 'child_selector', 'function(){}') - when event_type happens on selector then run the function
-selector.closest('selector') - finds the closest ancestor of the selected selector
-selector.addClass('class_name') - adds class to selector
-selector.removeClass('class_name') - removes class from selector
-.val() - gets the value of an input element
-.trim() - removes whitespace from both ends of a string
-*/
