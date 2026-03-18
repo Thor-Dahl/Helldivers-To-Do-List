@@ -9,6 +9,15 @@ flatpickr("#time-deadline", {
     dateFormat: "H:i"
 });
 
+function updateCount() {
+    let ongoingCount = $(".list-container-ongoing").find(".list-item").length;
+    let accomplishedCount = $(".list-container-accomplished").find(".list-item").length;
+    let totalCount = ongoingCount + accomplishedCount;
+
+    $("#ongoing-count").text(`${ongoingCount} / ${totalCount} ONGOING`);
+    $("#accomplished-count").text(`${accomplishedCount} / ${totalCount} ACCOMPLISHED`);
+}
+
 /* Add list item when clicked add item button */
 $("#button-submit").click(function() {
     const priorityText = $("#priority option:selected").text();
@@ -65,6 +74,8 @@ $("#button-submit").click(function() {
     $item.find(".list-item-priority").addClass(`${priorityVal}-priority`);
     $(".list-container-ongoing").append($item);
 
+    updateCount();
+
     $("#add-item-text").val("");
     $("#add-item-description").val("");
     $("#priority").val("PRIORITY");
@@ -91,6 +102,7 @@ $(".main-container").on("change", ".list-item input[type='checkbox']", function(
             $(".list-container-accomplished").append(listItem);
             listItem.addClass("accomplished");
             playListItemAnimation(listItem, "fadeInUpDone");
+            updateCount();
             setTimeout(() => {
                 listItem.css("animation", "");
                 listItem.css("pointer-events", "");
@@ -102,6 +114,7 @@ $(".main-container").on("change", ".list-item input[type='checkbox']", function(
             $(".list-container-ongoing").append(listItem);
             listItem.removeClass("accomplished");
             playListItemAnimation(listItem, "fadeInDown");
+            updateCount();
             setTimeout(() => {
                 listItem.css("animation", "");
                 listItem.css("pointer-events", "");
@@ -113,4 +126,5 @@ $(".main-container").on("change", ".list-item input[type='checkbox']", function(
 /* Remove list item when deleted */
 $(".main-container").on("click", ".delete-list-option", function() { 
     $(this).closest(".list-item").remove(); 
+    updateCount();
 })
