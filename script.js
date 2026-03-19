@@ -72,6 +72,15 @@ $("#button-submit").click(function() {
     `);
 
     $item.find(".list-item-priority").addClass(`${priorityVal}-priority`);
+    $item.draggable({
+        helper: "clone",
+        revert: "invalid",
+        axis: "y",
+        appendTo: "body",
+        start: function(event, ui) {
+            ui.helper.css("z-index", 9999);
+        }
+    });
     $(".list-container-ongoing").append($item);
 
     updateCount();
@@ -127,4 +136,13 @@ $(".main-container").on("change", ".list-item input[type='checkbox']", function(
 $(".main-container").on("click", ".delete-list-option", function() { 
     $(this).closest(".list-item").remove(); 
     updateCount();
+})
+
+
+$(".list-container-accomplished").droppable({
+    hoverClass: "highlight",
+    drop: function(event, ui) {
+        let droppedItem = ui.draggable;
+        $(this).append(droppedItem);
+    }
 })
