@@ -1,15 +1,29 @@
-$(".list-container-ongoing").sortable({
+import { updateCount } from "./ui.js";
+
+$("#list-container-ongoing").sortable({
+    items: ".list-item",
     placeholder: "sort-placeholder", 
     axis: "y",
-    update: function(event, ui) {
-        var order = $(this).sortable( "toArray" );
+    connectWith: ".list-container",
+    receive: function(event, ui) {
+        let listItem = ui.item;
+        $(this).append(listItem);
+        listItem.removeClass("accomplished");
+        listItem.find("input[type='checkbox']").prop("checked", false);
+        updateCount();
     }
 });
 
-$(".list-container-accomplished").sortable({
+$("#list-container-accomplished").sortable({
+    items: ".list-item",
     placeholder: "sort-placeholder", 
     axis: "y",
-    update: function(event, ui) {
-        var order = $(this).sortable( "toArray" );
+    connectWith: ".list-container",
+    receive: function(event, ui) {
+        let listItem = ui.item;
+        $(this).append(listItem);
+        listItem.addClass("accomplished")
+        listItem.find("input[type='checkbox']").prop("checked", true);
+        updateCount();
     }
 });

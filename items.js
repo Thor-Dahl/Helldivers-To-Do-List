@@ -56,7 +56,7 @@ $("#button-submit").click(function() {
     `);
 
     $item.find(".list-item-priority").addClass(`${priorityVal}-priority`);
-    $(".list-container-ongoing").append($item);
+    $("#list-container-ongoing").append($item);
 
     updateCount();
 
@@ -85,7 +85,7 @@ $(".main-container").on("change", ".list-item input[type='checkbox']", function(
     if (isChecked) {                                   //Mark as accomplished
         playListItemAnimation(listItem, "fadeOutDown");
         setTimeout(() => {
-            $(".list-container-accomplished").append(listItem);
+            $("#list-container-accomplished").append(listItem);
             listItem.addClass("accomplished");
             playListItemAnimation(listItem, "fadeInUpDone");
             updateCount();
@@ -97,7 +97,7 @@ $(".main-container").on("change", ".list-item input[type='checkbox']", function(
     } else {                                           //Mark as ongoing
         playListItemAnimation(listItem, "fadeOutUp");
         setTimeout(function() {
-            $(".list-container-ongoing").append(listItem);
+            $("#list-container-ongoing").append(listItem);
             listItem.removeClass("accomplished");
             playListItemAnimation(listItem, "fadeInDown");
             updateCount();
