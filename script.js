@@ -72,15 +72,6 @@ $("#button-submit").click(function() {
     `);
 
     $item.find(".list-item-priority").addClass(`${priorityVal}-priority`);
-    $item.draggable({
-        helper: "clone",
-        revert: "invalid",
-        axis: "y",
-        appendTo: "body",
-        start: function(event, ui) {
-            ui.helper.css("z-index", 9999);
-        }
-    });
     $(".list-container-ongoing").append($item);
 
     updateCount();
@@ -146,3 +137,11 @@ $(".list-container-accomplished").droppable({
         $(this).append(droppedItem);
     }
 })
+
+$(".list-container-ongoing").sortable({
+    placeholder: "sort-placeholder", 
+    axis: "y",
+    update: function(event, ui) {
+        var order = $( this ).sortable( "toArray" );
+    }
+});
