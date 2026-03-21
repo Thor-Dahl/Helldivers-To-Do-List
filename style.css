@@ -247,7 +247,13 @@ h2::after {
 
 select.button {
     background-color: var(--color-bg-mid);
+    appearance: none;
+    background: var(--stripe-bg);
+    padding-right: 28px;
+    font-size: 13px;
+    letter-spacing: 1px;
 }
+
 
 
 /* =============================================================================
@@ -283,7 +289,6 @@ select.button {
 .ui-sortable-helper {
     z-index: 9999 !important;
 }
-
 
 /* =============================================================================
    LIST ITEMS
@@ -577,4 +582,44 @@ input[type="checkbox"]:checked::before {
     background: transparent;
     border-radius: 8px;
     visibility: visible !important; 
+}
+
+/* =============================================================================
+   SLIM SELECT
+   ============================================================================= */
+
+.ss-main {
+    --ss-primary-color:     yellow;
+    --ss-bg-color:          var(--color-bg-mid);
+    --ss-font-color:        var(--color-text-muted);
+    --ss-placeholder-color: var(--color-text-dim);
+    --ss-border-color:      var(--color-border);
+    --ss-border-radius:     0;
+    --ss-main-height:       100%;
+
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 1px;
+    border: none;
+    padding: 0 12px;
+    flex: 1;
+    width: 100%;
+}
+
+.ss-content .ss-list .ss-option.ss-selected {
+    border: 1px solid yellow;
+}
+
+.ss-content {
+    --ss-primary-color: rgba(255, 255, 0, 0.452);
+    --ss-bg-color:     var(--color-bg-surface);
+    --ss-font-color:   var(--color-text-muted);
+    --ss-border-color: var(--color-border);
+    --ss-border-radius: 0;
+
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    background: var(--stripe-bg);
+    letter-spacing: 1px;
+    border: 1px yellow solid;
 }

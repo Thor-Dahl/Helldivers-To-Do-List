@@ -11,9 +11,9 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "choices.js": "^11.2.1",
     "flatpickr": "^4.6.13",
-    "jquery": "^3.7.1"
+    "jquery": "^3.7.1",
+    "slim-select": "^3.4.3"
   },
   "devDependencies": {
     "parcel": "^2.16.4"

@@ -6,3 +6,4 @@ export function updateCount() {
     $("#ongoing-count").text(`${ongoingCount} / ${totalCount} ONGOING`);
     $("#accomplished-count").text(`${accomplishedCount} / ${totalCount} ACCOMPLISHED`);
 }
+
